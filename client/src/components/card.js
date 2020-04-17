@@ -18,9 +18,11 @@ import Close from '@material-ui/icons/Close';
 
 
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    margin: 'auto'
   },
   media: {
     height: 0,
