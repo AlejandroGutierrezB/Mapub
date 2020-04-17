@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 // import Map from './components/map';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import barList from './data/bares_small.json';
+import Card from './components/card';
 
 
 function App () {
+
+  const [togglePopup, setTogglePopup] = useState({});
   const [viewport, setViewport] = useState({
     width: '100vw',
     height: '100vh',
@@ -24,32 +27,36 @@ function App () {
           setViewport(viewport);
         }}
       >
-        {/* <Marker
-          latitude={41.393197}
-          longitude={2.202265}
-        >
-          <button className="marker-btn">
-            <img src="https://img.icons8.com/ios-filled/50/000000/marker-b.png"
-              width="60px"
-              height="60px"
-              alt="Whatever" />
-          </button>
-        </Marker> */}
         {barList.map(bar => {
-          console.log('bar: ', bar);
+          {/* console.log('bar: ', bar); */ }
           return (
-            <Marker
-              key={bar.NOMBRE_BAR}
-              latitude={bar.LATITUD}
-              longitude={bar.LONGITUD}
-              offsetLeft={-12}
-              offsetTop={-24}
-            >
-              <button className="marker-btn">
-                <img src="https://img.icons8.com/ios-filled/50/000000/marker-b.png"
-                  alt={`${bar.NOMBRE_BAR}`} />
-              </button>
-            </Marker>
+            <React.Fragment key={bar.NOMBRE_BAR}>
+              <Marker
+                // key={bar.NOMBRE_BAR}
+                latitude={bar.LATITUD}
+                longitude={bar.LONGITUD}
+                offsetLeft={-12}
+                offsetTop={-24}
+              >
+                <div
+                  className="marker-btn"
+                  onClick={() => setTogglePopup({
+                    [bar.NOMBRE_BAR]: true,
+                  })}
+                >
+                  <img src="https://img.icons8.com/ios-filled/50/000000/marker-b.png"
+                    alt={`${bar.NOMBRE_BAR}`} />
+                </div>
+              </Marker>
+              {
+                togglePopup[bar.NOMBRE_BAR] ? (
+                  <Card
+                    bar={bar}
+                    setTogglePopup={setTogglePopup}
+                  />
+                ) : null
+              }
+            </React.Fragment>
           );
         })}
       </ReactMapGL>
