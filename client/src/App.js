@@ -37,17 +37,16 @@ function App () {
         </Marker> */}
         {barList.map(bar => {
           console.log('bar: ', bar);
-          console.log('bar: ', bar.LATITUD);
           return (
             <Marker
               key={bar.NOMBRE_BAR}
               latitude={bar.LATITUD}
               longitude={bar.LONGITUD}
+              offsetLeft={-12}
+              offsetTop={-24}
             >
               <button className="marker-btn">
                 <img src="https://img.icons8.com/ios-filled/50/000000/marker-b.png"
-                  width="60px"
-                  height="60px"
                   alt={`${bar.NOMBRE_BAR}`} />
               </button>
             </Marker>
