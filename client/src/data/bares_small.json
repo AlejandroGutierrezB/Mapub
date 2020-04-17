@@ -1,0 +1,47 @@
+[
+  {
+    "Orden": "1",
+    "NOMBRE_BAR": "Bar Zelig",
+    "LATITUD": 41.393197,
+    "LONGITUD": 2.202265,
+    "TELEFONO_NUM": 931250135,
+    "HORARIO_INICIO": "",
+    "HORARIO_FIN": ""
+  },
+  {
+    "Orden": "2",
+    "NOMBRE_BAR": "Bar Musical S??ncopa",
+    "LATITUD": 41.380384,
+    "LONGITUD": 2.179054,
+    "TELEFONO_NUM": 932687560,
+    "HORARIO_INICIO": "",
+    "HORARIO_FIN": ""
+  },
+  {
+    "Orden": "3",
+    "NOMBRE_BAR": "Bar Musical Barbara Ann",
+    "LATITUD": 41.390424,
+    "LONGITUD": 2.139474,
+    "TELEFONO_NUM": 934306929,
+    "HORARIO_INICIO": "",
+    "HORARIO_FIN": ""
+  },
+  {
+    "Orden": "4",
+    "NOMBRE_BAR": "Cerveseria Antibi??tic",
+    "LATITUD": 41.384504,
+    "LONGITUD": 2.146279,
+    "TELEFONO_NUM": 933223266,
+    "HORARIO_INICIO": "",
+    "HORARIO_FIN": ""
+  },
+  {
+    "Orden": "5",
+    "NOMBRE_BAR": "Restaurant Candela Raval",
+    "LATITUD": 41.379073,
+    "LONGITUD": 2.17073,
+    "TELEFONO_NUM": 930029490,
+    "HORARIO_INICIO": "",
+    "HORARIO_FIN": ""
+  }
+]

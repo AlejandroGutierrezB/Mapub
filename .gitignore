@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# App wireframe and mokcup assets
+mock-up/
+# Excel files
+.csv
+.xlsx
