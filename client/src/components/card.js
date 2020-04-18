@@ -19,10 +19,14 @@ import Close from '@material-ui/icons/Close';
 
 
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
-    margin: 'auto'
+    margin: 'auto',
+    marginTop: theme.spacing(10),
+    zIndex: 10,
+    position: 'relative'
   },
   media: {
     height: 0,
@@ -43,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard ({ bar, setTogglePopup }) {
+export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -53,7 +57,7 @@ export default function RecipeReviewCard ({ bar, setTogglePopup }) {
 
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} zIndex="tooltip">
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -62,7 +66,10 @@ export default function RecipeReviewCard ({ bar, setTogglePopup }) {
         }
         action={
           <IconButton
-            onClick={() => setTogglePopup({})}
+            onClick={() => {
+              setTogglePopup({});
+              setSelectedBar(null);
+            }}
             aria-label="close">
             <Close />
           </IconButton>

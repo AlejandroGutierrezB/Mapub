@@ -14,6 +14,8 @@ const useStyles = makeStyles(theme => ({
     width: "auto",
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
+    zIndex: 10,
+    position: 'relative',
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 600,
       marginLeft: "auto",
@@ -40,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NewBarForm ({ setAddBar }) {
+export default function NewBarForm ({ setAddBar, setSelectedBar, addBar }) {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -55,7 +57,10 @@ export default function NewBarForm ({ setAddBar }) {
             </Grid>
             <Grid item xs={12} md={6}>
               <IconButton
-                onClick={() => setAddBar(null)}
+                onClick={() => {
+                  setAddBar(null);
+                  setSelectedBar(null);
+                }}
                 aria-label="close">
                 <Close />
               </IconButton>
