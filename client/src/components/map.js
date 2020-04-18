@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import ReactMapGL, { Marker, GeolocateControl } from 'react-map-gl';
+import ReactMapGL, { Marker, GeolocateControl, NavigationControl } from 'react-map-gl';
 import Geocoder from "react-map-gl-geocoder";
 import barList from '../data/bares_small.json';
 import Card from '../components/card';
@@ -8,13 +8,17 @@ import NewBarForm from '../components/new-bar-form';
 
 const geolocateStyle = {
   position: 'absolute',
-  top: 0,
-  left: 0,
-  margin: 10,
+  right: 0,
+  bottom: 100,
+  margin: 15,
 };
 
 function Map () {
+
+  const mapRef = useRef();
+
   const [addBar, setAddBar] = useState(null);
+  const [showForm, setShowForm] = useState(false);
   const [togglePopup, setTogglePopup] = useState({});
   const [selectedBar, setSelectedBar] = useState(null);
   const [viewport, setViewport] = useState({
@@ -34,17 +38,18 @@ function Map () {
     setSelectedBar(null);
   };
 
-  const mapRef = useRef();
-  // const handleOnResult = result => {
-  //   console.log(result);
-  //   console.log(result.result.geometry.coordinates);
-  //   const [longitude] = result.geometry.coordinates[0];
-  //   const [latitude] = result.geometry.coordinates[1];
-  //   setAddBar({
-  //     latitude,
-  //     longitude,
-  //   });
-  // };
+  const handleShowForm = () => {
+    setShowForm(!showForm);
+  };
+
+  const handleOnResult = result => {
+    const longitude = result.result.geometry.coordinates[0];
+    const latitude = result.result.geometry.coordinates[1];
+    setAddBar({
+      latitude,
+      longitude,
+    });
+  };
 
   return (
     <div className="Map">
@@ -54,29 +59,27 @@ function Map () {
         // mapStyle="mapbox://styles/aleguti94/ck92mrrba2b8y1iocq2mi2rzi"
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={setViewport}
-        onClick={() => {
-          setAddBar(null);
-          setSelectedBar(null);
-        }
-        }
         onDblClick={addNewBarMarker}
       >
+        <GeolocateControl
+          style={geolocateStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          showUserLocation={true}
+        />
+        <div style={{ position: 'absolute', right: 0, bottom: 10, margin: 15 }} >
+          <NavigationControl />
+        </div>
         <Geocoder
           mapRef={mapRef}
           {...viewport}
           mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
           onViewportChange={setViewport}
           position="top-right"
-          collapsed={true}
+          zoom={10}
           clearOnBlur={true}
           proximity={{ latitude: `${viewport.latitude}`, longitude: `${viewport.longitude}` }}
           trackProximity={true}
-        // onResult={(result) => handleOnResult(result)}
-        />
-        <GeolocateControl
-          positionOptions={{ enableHighAccuracy: true }}
-          // trackUserLocation={true}
-          style={geolocateStyle}
+          onResult={(result) => handleOnResult(result)}
         />
         {barList.map(bar => {
           return (
@@ -126,19 +129,25 @@ function Map () {
               >
                 <div
                   className="new-marker-btn"
+                  onClick={() => handleShowForm()}
                 >
                   <img src="https://lh3.googleusercontent.com/proxy/eHK573GOSOYoQpWrsbSXoxytrfVP0aQ35vTTYofQFFWSeU-sq1wuzRcJy1aThC-AZVLkrCTQTIZpxgaS2-UzW_i58hN-NUAtf4qqze6CZAIr_nwUFAMSXKt67CglyRLcACEAMEBL4jg58s2lWDowWZY5fNKy"
                     alt="new bar" />
                 </div>
               </Marker>
-              <NewBarForm
-                addBar={addBar}
-                setAddBar={setAddBar}
-                setSelectedBar={setSelectedBar}
-              />
+              {
+                showForm ? (
+                  <NewBarForm
+                    addBar={addBar}
+                    setAddBar={setAddBar}
+                    setSelectedBar={setSelectedBar}
+                  />
+                )
+                  : null
               }
             </>
-          ) : null
+          )
+            : null
         }
       </ReactMapGL>
     </div>

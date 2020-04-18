@@ -57,7 +57,7 @@ export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar 
 
 
   return (
-    <Card className={classes.root} zIndex="tooltip">
+    <Card className={classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
