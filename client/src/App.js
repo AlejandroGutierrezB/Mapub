@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // import Map from './components/map';
 import ReactMapGL, { Marker, GeolocateControl } from 'react-map-gl';
+import Geocoder from "react-map-gl-geocoder";
 import barList from './data/bares_small.json';
 import Card from './components/card';
 import NewBarForm from './components/new-bar-form';
+
+
 
 const geolocateStyle = {
   position: 'absolute',
@@ -12,11 +15,12 @@ const geolocateStyle = {
   margin: 10,
 };
 
-console.log('geolocateControl: ', GeolocateControl.style);
+// Geocoder
 
 function App () {
 
   const [addBar, setAddBar] = useState(null);
+
   const [togglePopup, setTogglePopup] = useState({});
   const [viewport, setViewport] = useState({
     width: '100vw',
@@ -34,25 +38,48 @@ function App () {
     });
   };
 
+  //needed to pass the mapref from initiail map to geocoder
+  const mapRef = useRef();
+  //geocoder add a marker
+  const handleOnResult = result => {
+    console.log(result);
+    console.log(result.result.geometry.coordinates);
+    // const [longitude] = result.geometry.coordinates[0];
+    // const [latitude] = result.geometry.coordinates[1];
+    // setAddBar({
+    //   latitude,
+    //   longitude,
+    // });
+  };
+  console.log('geolocateStyle: ', geolocateStyle);
+
   return (
     <div className="App">
       {/* <Map /> */}
       <ReactMapGL
+        ref={mapRef}
         {...viewport}
         // mapStyle="mapbox://styles/aleguti94/ck92mrrba2b8y1iocq2mi2rzi"
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        onViewportChange={viewport => {
-          setViewport(viewport);
-        }}
+        onViewportChange={setViewport}
         onDblClick={addNewBarMarker}
       >
+        <Geocoder
+          mapRef={mapRef}
+          {...viewport}
+          mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+          onViewportChange={setViewport}
+          position="top-right"
+          collapsed={true}
+          clearOnBlur={true}
+          proximity={{ latitude: `${viewport.latitude}`, longitude: `${viewport.longitude}` }}
+          trackProximity={true}
+          onResult={handleOnResult}
+        />
         <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation={true}
+          // trackUserLocation={true}
           style={geolocateStyle}
-        // onGeolocate={viewport => {
-        //   setViewport(viewport);
-        // }}
         />
         {barList.map(bar => {
           return (
