@@ -1,111 +1,112 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
 import Close from '@material-ui/icons/Close';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
 
-const useStyles = makeStyles(theme => ({
-  layout: {
-    width: "auto",
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+import clsx from 'clsx';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+
+import MaterialUIPickers from './date-picker.js';
+
+import Selector from './selector.js'
+
+import React from 'react';
+
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+    margin: 'auto',
+    marginTop: theme.spacing(10),
     zIndex: 10,
     position: 'relative',
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
+    justifyContent: 'center'
   },
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(4),
-      padding: theme.spacing(3)
-    }
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
   },
   buttons: {
     display: "flex",
-    justifyContent: "flex-end"
   },
   button: {
-    marginTop: theme.spacing(6),
+    justifyContent: 'center',
+    marginTop: theme.spacing(1),
     marginLeft: theme.spacing(1)
   }
 }));
 
-export default function NewBarForm ({ setAddBar, setSelectedBar, addBar }) {
+export default function RecipeReviewCard ({ setAddBar, setSelectedBar, handleShowForm }) {
   const classes = useStyles();
+
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <Typography variant="h6" gutterBottom>
-                Payment Card
-          </Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <IconButton
-                onClick={() => {
-                  setAddBar(null);
-                  setSelectedBar(null);
-                }}
-                aria-label="close">
-                <Close />
-              </IconButton>
-            </Grid>
-          </Grid>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="barName"
-                label="Bar name"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="barAddress"
-                label="Bar address"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField required id="OpenHour" label="Open hour" fullWidth />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="CloseHour"
-                label="Close Hour"
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-          <div className={classes.buttons}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-            >
-              submit
+    <Card className={classes.root}>
+      <CardHeader
+        action={
+          <IconButton
+            onClick={() => {
+              setAddBar(null);
+              setSelectedBar(null);
+              handleShowForm();
+            }}
+            aria-label="close">
+            <Close />
+          </IconButton>
+        }
+        title="Add a new Bar"
+        subheader="Cheers to that one🍻"
+      />
+      <CardContent>
+        <TextField required id="BarName" label="Bar Name" variant="outlined" margin="dense" fullWidth="true"/>
+      </CardContent>
+      <CardContent>
+      <Grid container justify="center">
+        <MaterialUIPickers label="Open hour"/>
+        <MaterialUIPickers label="Close hour"/>
+        <TextField
+          type="Number"
+          required
+          label="Price"
+          id="outlined-start-adornment"
+          className={clsx(classes.margin, classes.textField)}
+          InputProps={{
+            min: 0,
+            step: 0.5,
+            startAdornment: <InputAdornment position="start">€</InputAdornment>
+          }}
+          variant="outlined"
+        />
+        <Selector/>
+      </Grid>
+      </CardContent>
+      <CardActions >
+        <Grid container justify="center">
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+          >
+            Add beer
             </Button>
-          </div>
-        </Paper>
-      </main>
-    </React.Fragment>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          >
+            Save Bar
+            </Button>
+        </Grid>
+      </CardActions>
+    </Card>
   );
 }

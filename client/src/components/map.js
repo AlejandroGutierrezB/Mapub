@@ -9,7 +9,7 @@ import NewBarForm from '../components/new-bar-form';
 const geolocateStyle = {
   position: 'absolute',
   right: 0,
-  bottom: 100,
+  bottom: 132,
   margin: 15,
 };
 
@@ -23,10 +23,10 @@ function Map () {
   const [selectedBar, setSelectedBar] = useState(null);
   const [viewport, setViewport] = useState({
     width: '100vw',
-    height: '100vh',
+    height: '98vh',
     latitude: 41.3940,
     longitude: 2.1991,
-    zoom: 10
+    zoom: 14
   });
 
   const addNewBarMarker = (event) => {
@@ -66,7 +66,7 @@ function Map () {
           positionOptions={{ enableHighAccuracy: true }}
           showUserLocation={true}
         />
-        <div style={{ position: 'absolute', right: 0, bottom: 10, margin: 15 }} >
+        <div style={{ position: 'absolute', right: 0, bottom: 40, margin: 15 }} >
           <NavigationControl />
         </div>
         <Geocoder
@@ -141,6 +141,7 @@ function Map () {
                     addBar={addBar}
                     setAddBar={setAddBar}
                     setSelectedBar={setSelectedBar}
+                    handleShowForm={handleShowForm}
                   />
                 )
                   : null
