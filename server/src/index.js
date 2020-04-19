@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const router = require ('./router');
 const connectDB = require('./db');
+const middlewares = require('./middleweres');
 
 const SERVER_URL = process.env.SERVER_BASE_URL || 'http://localhost';
 const PORT = process.env.PORT || 3001;
@@ -20,7 +21,8 @@ app.use(express.json());
 
 
 app.use(router);
-
+app.use(middlewares.notFound);
+app.use(middlewares.errorHandler);
 
 
 
