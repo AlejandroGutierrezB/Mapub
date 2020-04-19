@@ -8,6 +8,10 @@ router.get('/', (req,res) => {
   })
 })
 router.get('/bars', bar.getAll);
+router.get('/bars/:id', bar.getBar);
+
+router.put('/bars/:id/update', bar.updateBarBeers);
+
 router.post('/bars', bar.postBar);
 
 //TODO this would be middlewares in different file

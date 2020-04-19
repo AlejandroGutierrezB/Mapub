@@ -9,12 +9,17 @@ async function getAll (req, res) {
     res.sendStatus(500);
   }
 }
+
 async function postBar (req, res) {
   try {
     const newBar = await Bar.create({
-      title: req.body.title,
-      venue: req.body.venue,
-      date: req.body.date,
+      barName: req.body.barName,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      tlf: req.body.tlf,
+      openHour: req.body.openHour,
+      closeHour: req.body.closeHour,
+      beerList: req.body.beerList,
     });
     res.status(200).json(newBar);
   } catch (error) {
@@ -23,7 +28,36 @@ async function postBar (req, res) {
   }
 }
 
+async function getBar (req, res) {
+  try {
+    const bar = await Bar.findById({ _id: req.params.id });
+    console.log('req.body: ', req.body);
+    res.status(200)
+    res.json(bar);
+  } catch (error) {
+    console.log(error);//eslint-disable-line
+    res.sendStatus(500);
+  }
+}
+async function updateBarBeers (req, res) {
+  try {
+    const newBeer = req.body.beerList
+    const bar = await Bar.findByIdAndUpdate(
+      { _id: req.params.id },
+      {  beerList: newBeer  },
+      { new: true }, //make update and then receive the response
+    );
+    res.status(200);
+    res.json(bar);
+  } catch (error) {
+    console.log(error);//eslint-disable-line
+    res.sendStatus(500);
+  }
+}
+
 module.exports = {
   getAll,
   postBar,
+  getBar,
+  updateBarBeers,
 };
