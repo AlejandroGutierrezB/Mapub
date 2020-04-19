@@ -131,7 +131,7 @@ function Map () {
                   className="new-marker-btn"
                   onClick={() => handleShowForm()}
                 >
-                  <img src="https://lh3.googleusercontent.com/proxy/eHK573GOSOYoQpWrsbSXoxytrfVP0aQ35vTTYofQFFWSeU-sq1wuzRcJy1aThC-AZVLkrCTQTIZpxgaS2-UzW_i58hN-NUAtf4qqze6CZAIr_nwUFAMSXKt67CglyRLcACEAMEBL4jg58s2lWDowWZY5fNKy"
+                  <img src="../public/color-pin.png"
                     alt="new bar" />
                 </div>
               </Marker>
