@@ -12,7 +12,7 @@ async function getAll (req, res) {
 
 async function postBar (req, res) {
   const bar = req.body;
-  const barChecker = await Bar.findOne({barName:bar.barName});
+  const barChecker = await Bar.findOne({barName:bar.barName}); //in future also with same coordinates(tolerance)
 
   if (barChecker) {
     const error = new Error('Bar already exists.');

@@ -1,9 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactMapGL, { Marker, GeolocateControl, NavigationControl } from 'react-map-gl';
 import Geocoder from "react-map-gl-geocoder";
-import barList from '../data/bares_small.json';
+// import barList from '../data/bares_small.json';
 import Card from '../components/card';
 import NewBarForm from '../components/new-bar-form';
+
+import { getAllBars } from '../API.js'
 
 
 const geolocateStyle = {
@@ -17,6 +19,7 @@ function Map () {
 
   const mapRef = useRef();
 
+  const [barList, setBarList] = useState([]);
   const [addBar, setAddBar] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [togglePopup, setTogglePopup] = useState({});
@@ -26,8 +29,16 @@ function Map () {
     height: '98vh',
     latitude: 41.3940,
     longitude: 2.1991,
-    zoom: 14
+    zoom: 14,
   });
+
+  useEffect(() => {
+    (async () => {
+      const barList = await getAllBars();
+      setBarList(barList);
+      console.log('barList: ',barList);
+    })();
+  }, [])
 
   const addNewBarMarker = (event) => {
     const [longitude, latitude] = event.lngLat;
@@ -75,7 +86,6 @@ function Map () {
           mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
           onViewportChange={setViewport}
           position="top-right"
-          zoom={10}
           clearOnBlur={true}
           proximity={{ latitude: `${viewport.latitude}`, longitude: `${viewport.longitude}` }}
           trackProximity={true}
@@ -83,11 +93,11 @@ function Map () {
         />
         {barList.map(bar => {
           return (
-            <React.Fragment key={bar.NOMBRE_BAR}>
+            <React.Fragment key={bar.barName}>
               <Marker
-                // key={bar.NOMBRE_BAR}
-                latitude={bar.LATITUD}
-                longitude={bar.LONGITUD}
+                // key={bar.barName}
+                latitude={bar.latitude}
+                longitude={bar.longitude}
                 offsetLeft={-12}
                 offsetTop={-24}
               >
@@ -95,18 +105,18 @@ function Map () {
                   className="marker-btn"
                   onClick={() => {
                     setTogglePopup({
-                      [bar.NOMBRE_BAR]: true,
+                      [bar.barName]: true,
                     });
-                    setSelectedBar(bar.NOMBRE_BAR);
+                    setSelectedBar(bar.barName);
                     setAddBar(null);
                   }}
                 >
                   <img src="https://img.icons8.com/ios-filled/50/000000/marker-b.png"
-                    alt={`${bar.NOMBRE_BAR}`} />
+                    alt={`${bar.barName}`} />
                 </div>
               </Marker>
               {
-                togglePopup[bar.NOMBRE_BAR] && selectedBar ? (
+                togglePopup[bar.barName] && selectedBar ? (
                   <Card
                     bar={bar}
                     setTogglePopup={setTogglePopup}

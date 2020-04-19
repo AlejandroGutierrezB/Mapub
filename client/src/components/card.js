@@ -53,12 +53,12 @@ export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar 
             <Close />
           </IconButton>
         }
-        title={bar.NOMBRE_BAR}
-        subheader={`${(!bar.HORARIO_INICIO ? '' : (`${bar.HORARIO_INICIO} - ${bar.HORARIO_FIN}`))}`} //properties.
+        title={bar.barName}
+        subheader={`${(!bar.openHour ? '' : (`${bar.openHour} - ${bar.closeHour}`))}`} //properties.
       />
       <CardMedia
         className={classes.media}
-        image="https://media-cdn.tripadvisor.com/media/photo-s/16/4c/a7/39/a-o-to-i-nasz-steampunkowy.jpg"
+        image="https://picsum.photos/200/300/"
         title="Paella dish" // bar name
       />
       <CardContent>
