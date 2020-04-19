@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactMapGL, { Marker, GeolocateControl, NavigationControl } from 'react-map-gl';
 import Geocoder from "react-map-gl-geocoder";
-// import barList from '../data/bares_small.json';
 import Card from '../components/card';
 import NewBarForm from '../components/new-bar-form';
 
@@ -29,7 +28,7 @@ function Map () {
     height: '98vh',
     latitude: 41.3940,
     longitude: 2.1991,
-    zoom: 14,
+    zoom: 13,
   });
 
   useEffect(() => {
@@ -111,8 +110,7 @@ function Map () {
                     setAddBar(null);
                   }}
                 >
-                  <img src="https://img.icons8.com/ios-filled/50/000000/marker-b.png"
-                    alt={`${bar.barName}`} />
+                    <span className="material-icons main">add_location</span>
                 </div>
               </Marker>
               {
@@ -141,8 +139,7 @@ function Map () {
                   className="new-marker-btn"
                   onClick={() => handleShowForm()}
                 >
-                  <img src="../public/color-pin.png"
-                    alt="new bar" />
+                  <span className="material-icons add">add_location</span>
                 </div>
               </Marker>
               {

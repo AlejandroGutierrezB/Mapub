@@ -12,6 +12,10 @@ import ShareIcon from '@material-ui/icons/Share';
 import EditIcon from '@material-ui/icons/Edit';
 import React from 'react';
 
+import img from '../icons/mnm-all-XDW56oKSCHw-unsplash (1).jpg'
+
+
+
 
 
 
@@ -58,12 +62,13 @@ export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar 
       />
       <CardMedia
         className={classes.media}
-        image="https://picsum.photos/200/300/"
-        title="Paella dish" // bar name
+        // image="https://picsum.photos/200/300/"
+        image={img}
+        title="beer"
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          🔼This will be a list with the beers
+        ✆{bar.tlf}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

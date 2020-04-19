@@ -2,45 +2,42 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const currencies = [
+const sizes = [
   {
-    value: 'USD',
-    label: '$',
+    value: 'caña',
+    label: '0,20L',
   },
   {
-    value: 'EUR',
-    label: '€',
+    value: 'tercio',
+    label: '0,33L',
   },
   {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
+    value: 'pinta',
+    label: '0,5L',
   },
 ];
 
 
 export default function MultilineTextFields() {
 
-  const [currency, setCurrency] = React.useState('EUR');
+  const [size, setSize] = React.useState('EUR');
 
   const handleChange = (event) => {
-    setCurrency(event.target.value);
+    setSize(event.target.value);
   };
 
   return (
     // <form className={classes.root} noValidate autoComplete="off"> // helpfull for handling everything
         <TextField
-          id="outlined-select-currency"
+          id="outlined-select-size"
           select
-          label="Select"
-          value={currency}
+          label="Size"
+          value={size}
           onChange={handleChange}
           variant="outlined"
+          required
         >
-          {currencies.map((option) => (
+          {sizes.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>

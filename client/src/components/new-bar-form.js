@@ -66,14 +66,18 @@ export default function RecipeReviewCard ({ setAddBar, setSelectedBar, handleSho
         title="Add a new Bar"
         subheader="Cheers to that one🍻"
       />
+      {/* state1 */}
       <CardContent>
         <TextField required id="BarName" label="Bar Name" variant="outlined" margin="dense" fullWidth="true"/>
+        <MaterialUIPickers id="openHour" label="Open hour"/>
+        <MaterialUIPickers id="closeHour" label="Close hour"/>
       </CardContent>
+      {/* state2 */}
       <CardContent>
-      <Grid container justify="center">
-        <MaterialUIPickers label="Open hour"/>
-        <MaterialUIPickers label="Close hour"/>
+          <TextField mx="auto" required id="BeerName" label="Beer Brand" variant="outlined" margin="dense"/>
+      <Grid container direction="row" justify="space-between" alignItems="center">
         <TextField
+          margin="dense"
           type="Number"
           required
           label="Price"

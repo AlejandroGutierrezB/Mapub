@@ -24,4 +24,10 @@ body {
   width: 24px;
   height: 24px;
 }
+.material-icons.add{
+  color: #3F51B5;
+}
+.material-icons.main{
+  color: #7993BA;
+}
 
