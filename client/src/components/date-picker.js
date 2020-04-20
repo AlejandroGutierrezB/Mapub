@@ -6,9 +6,10 @@ import { MuiPickersUtilsProvider, KeyboardTimePicker} from '@material-ui/pickers
 
 export default function MaterialUIPickers({label}) {
 
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T19:00:00'));
+  const [selectedDate, setSelectedDate] = React.useState(null);
 
   const handleDateChange = (date) => {
+    console.log('date: ',date);
     setSelectedDate(date);
   };
 
@@ -17,7 +18,7 @@ export default function MaterialUIPickers({label}) {
       <Grid container justify="space-around">
         <KeyboardTimePicker
           margin="normal"
-          id={label}
+          name={label}
           label={label}
           value={selectedDate}
           onChange={handleDateChange}

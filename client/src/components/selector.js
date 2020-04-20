@@ -20,7 +20,7 @@ const sizes = [
 
 export default function MultilineTextFields() {
 
-  const [size, setSize] = React.useState('EUR');
+  const [size, setSize] = React.useState('');
 
   const handleChange = (event) => {
     setSize(event.target.value);
@@ -36,6 +36,7 @@ export default function MultilineTextFields() {
           onChange={handleChange}
           variant="outlined"
           required
+          name="size"
         >
           {sizes.map((option) => (
             <MenuItem key={option.value} value={option.value}>
