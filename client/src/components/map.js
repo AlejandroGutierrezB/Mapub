@@ -31,12 +31,13 @@ function Map () {
     zoom: 13,
   });
 
+  const getBarPins = async () => {
+    const barList = await getAllBars();
+    setBarList(barList);
+  };
+
   useEffect(() => {
-    (async () => {
-      const barList = await getAllBars();
-      setBarList(barList);
-      console.log('barList: ',barList);
-    })();
+    getBarPins();
   }, [])
 
   const addNewBarMarker = (event) => {
@@ -149,6 +150,11 @@ function Map () {
                     setAddBar={setAddBar}
                     setSelectedBar={setSelectedBar}
                     handleShowForm={handleShowForm}
+                    onClose={() => {
+                      handleShowForm();
+                      getBarPins();
+                      }
+                    }
                   />
                 )
                   : null

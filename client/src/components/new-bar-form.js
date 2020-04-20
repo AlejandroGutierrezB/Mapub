@@ -15,9 +15,10 @@ import clsx from 'clsx';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 
-import React from 'react';
+import React, { useState}  from 'react';
 import { useForm, Controller } from 'react-hook-form'
 
+import { createBar } from '../API.js'
 
 
 
@@ -53,11 +54,30 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, handleShowForm }) {
-  const classes = useStyles();
-  const { register, handleSubmit, control, errors} = useForm()
+export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, handleShowForm, onClose }) {
 
-  const onSubmit = data => { console.log(data, addBar) }
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const classes = useStyles();
+  const { register, handleSubmit, control} = useForm()
+
+  const onSubmit = async (data) => {
+    try {
+      console.log('data: ',data);
+      //roundup 6 decimals
+      //round the beer price also to a positive number to the 0.05
+      setLoading(true);
+      data.longitude = addBar.longitude;
+      data.latitude = addBar.latitude;
+      await createBar(data);
+      onClose()
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+      setLoading(false);
+    }
+  };
 
 
   return (
@@ -79,6 +99,7 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
       />
       {/* state1 */}
       {/* autocomplete="off" in production */}
+      { error ? <h3 className="error">{error}</h3> : null}
       <form onSubmit={handleSubmit(onSubmit)}>
       <CardContent>
         <TextField
@@ -134,14 +155,21 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
       <Grid container direction="row" justify="space-even" alignItems="center">
         <TextField
           margin="dense"
-          inputRef={register({ pattern: /^[0-9]+$/i, min: 0.5, message: 'The value should be a number over 0.5 €' })}
+          inputRef={register({
+             pattern: {
+               value: /^[1-9]\d{0,2}(\.\d{3})*(,\d+)?$/i,
+               message: 'The value should be a number over 0.5 €'
+               }
+               })
+          }
           required
           label="Price"
           name="price"
           size="small"
           className={clsx(classes.margin, classes.textField)}
           InputProps={{
-            type:"Number",
+            // type:"Number",
+            // step:"0.5",
             placeholder:"0",
             startAdornment: <InputAdornment position="start">€</InputAdornment>
           }}
@@ -177,8 +205,9 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
             variant="contained"
             color="primary"
             className={classes.button}
+            disabled={loading}
           >
-            Save Bar
+          {loading ? 'Loading...' : 'Save Bar'}
             </Button>
         </Grid>
       </CardActions>
