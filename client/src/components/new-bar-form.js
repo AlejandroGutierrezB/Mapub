@@ -15,10 +15,6 @@ import clsx from 'clsx';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 
-import MaterialUIPickers from './date-picker.js';
-
-import Selector from './selector.js'
-
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form'
 
@@ -40,12 +36,18 @@ const useStyles = makeStyles((theme) => ({
   },
   buttons: {
     display: "flex",
+    margin: 2,
   },
   button: {
     justifyContent: 'center',
     marginTop: theme.spacing(1),
     marginLeft: theme.spacing(1)
-  }
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
 }));
 
 
@@ -54,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, handleShowForm }) {
   const classes = useStyles();
   const { register, handleSubmit, control, errors} = useForm()
+
   const onSubmit = data => { console.log(data, addBar) }
 
 
@@ -78,21 +81,64 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
       {/* autocomplete="off" in production */}
       <form onSubmit={handleSubmit(onSubmit)}>
       <CardContent>
-        <TextField inputRef={register} required name="barName" label="Bar Name" variant="outlined" margin="dense" fullWidth="true"/>
-        {/* <Controller as={<MaterialUIPickers/>} name="openHour" control={control} defaultValue={null} /> */}
-        {/* <MaterialUIPickers inputRef={register} name="openHour" label="Open hour"/> */}
-        {/* <MaterialUIPickers inputRef={register} name="closeHour" label="Close hour"/> */}
-      </CardContent>
-      {/* state2 */}
+        <TextField
+        inputRef={
+          register({
+            pattern: {
+              value: /^(?:[A-Za-z]+)(?:[A-Za-z0-9 _]*)$/i,
+              message: 'No especial carracters alloud'
+            }
+          })
+        }
+        required name="barName" label="Bar Name" variant="outlined" margin="dense" fullWidth="true"/>
+       </CardContent>
       <CardContent>
-          <TextField mx="auto" inputRef={register} required name="beerName"  label="Beer Brand" variant="outlined" margin="dense"/>
-      <Grid container direction="row" justify="space-between" alignItems="center">
+        <TextField
+          inputRef={register}
+          id="openHour"
+          label="Open Hour"
+          name="openHour"
+          type="time"
+          className={classes.textField}
+          margin="dense"
+          variant="outlined"
+          InputLabelProps={{
+             shrink: true,
+          }}
+          inputProps={{
+            step: 300, // 5 min
+          }}
+        />
+        <TextField
+          inputRef={register}
+          id="closeHour"
+          label="Close Hour"
+          name="closeHour"
+          type="time"
+          className={classes.textField}
+          margin="dense"
+          variant="outlined"
+          InputLabelProps={{
+             shrink: true,
+          }}
+          inputProps={{
+            step: 300, // 5 min
+          }}
+        />
+      </CardContent>
+      {/* state2  should include form control for all fields completed*/}
+      <CardContent>
+        <TextField mx="auto" inputRef={register} required name="beerName"  label="Beer Brand" variant="outlined" margin="dense" fullWidth="true"/>
+      </CardContent>
+      <CardContent>
+      <Grid container direction="row" justify="space-even" alignItems="center">
         <TextField
           margin="dense"
-          inputRef={register({ pattern: /^[0-9]+$/i, min: 0.5 })}
+          inputRef={register({ pattern: /^[0-9]+$/i, min: 0.5, message: 'The value should be a number over 0.5 €' })}
           required
           label="Price"
           name="price"
+          size="small"
           className={clsx(classes.margin, classes.textField)}
           InputProps={{
             type:"Number",
@@ -101,29 +147,20 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
           }}
           variant="outlined"
         />
-        {/* <Selector inputRef={register} required name="size"/> */}
-        {/* <Controller
-        as={<Selector/>}
-        name="size"
-        required
-        control={control}
-        rules={{ required: true }}
-        onChange={(selected) => {
-          console.log('selected: ',selected);
-        }}
-        defaultValue={""}
-      /> */}
-      <Controller
-        as={
-          <Select>
+        <Controller
+          as={
+            <Select>
               <MenuItem value={0.25}>0,25L</MenuItem>
               <MenuItem value={0.33}>0,33L</MenuItem>
               <MenuItem value={0.5}>0,5L</MenuItem>
-          </Select>
-        }
-        name="size"
-        control={control}
-      />
+            </Select>
+          }
+          name="size"
+          control={control}
+          defaultValue={0.25}
+          displayEmpty={true}
+          required
+        />
       </Grid>
       </CardContent>
       <CardActions >
