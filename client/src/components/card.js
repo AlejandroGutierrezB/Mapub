@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar }) {
+export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar, setEditForm, editForm }) {
   const classes = useStyles();
 
   //TODO handle edit button
@@ -79,7 +79,13 @@ export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar 
           <ShareIcon />
         </IconButton>
         <IconButton aria-label="edit bar">
-          <EditIcon />
+          <EditIcon
+            onClick={() => {
+              // setTogglePopup({});
+              setSelectedBar(null);
+              setEditForm(!editForm);
+            }}
+          />
         </IconButton>
       </CardActions>
     </Card>

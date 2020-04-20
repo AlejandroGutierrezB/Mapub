@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, handleShowForm, onClose }) {
+export default function EditBarForm ({ bar, setTogglePopup, addBar, setAddBar, setSelectedBar, handleShowForm, onClose, setEditBar, editBar, setEditForm, editForm }) {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -86,68 +86,71 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
         action={
           <IconButton
             onClick={() => {
-              setAddBar(null);
+              setTogglePopup({});
               setSelectedBar(null);
-              handleShowForm();
+              setEditForm(!editForm);
             }}
             aria-label="close">
             <Close />
           </IconButton>
         }
-        title="Add a new Bar"
-        subheader="Cheers to that one🍻"
+        title={bar.barName}
+        subheader={`${(!bar.openHour ? '' : (`${bar.openHour} - ${bar.closeHour}`))}`} //properties.
       />
-      {/* autocomplete="off" in production */}
       { error ? <h3 className="error">{error}</h3> : null}
       <form onSubmit={handleSubmit(onSubmit)}>
       <CardContent>
-        <TextField
-        inputRef={
-          register({
-            pattern: {
-              value: /^(?:[A-Za-z]+)(?:[A-Za-z0-9 _]*)$/i,
-              message: 'No especial carracters alloud'
-            }
-          })
-        }
-        required name="barName" label="Bar Name" variant="outlined" margin="dense" fullWidth="true"/>
-       </CardContent>
+        <TextField mx="auto" inputRef={register} required name="beerName"  label="Beer Brand" variant="outlined" margin="dense" fullWidth="true"/>
+      </CardContent>
       <CardContent>
+      <Grid container direction="row" justify="space-even" alignItems="center">
         <TextField
-          inputRef={register}
-          id="openHour"
-          label="Open Hour"
-          name="openHour"
-          type="time"
-          className={classes.textField}
           margin="dense"
+          inputRef={register({
+             pattern: {
+               value: /^[1-9]\d{0,2}(\.\d{3})*(,\d+)?$/i,
+               message: 'The value should be a number over 0.5 €'
+               }
+               })
+          }
+          required
+          label="Price"
+          name="price"
+          size="small"
+          className={clsx(classes.margin, classes.textField)}
+          InputProps={{
+            // type:"Number",
+            // step:"0.5",
+            placeholder:"0",
+            startAdornment: <InputAdornment position="start">€</InputAdornment>
+          }}
           variant="outlined"
-          InputLabelProps={{
-             shrink: true,
-          }}
-          inputProps={{
-            step: 300, // 5 min
-          }}
         />
-        <TextField
-          inputRef={register}
-          id="closeHour"
-          label="Close Hour"
-          name="closeHour"
-          type="time"
-          className={classes.textField}
-          margin="dense"
-          variant="outlined"
-          InputLabelProps={{
-             shrink: true,
-          }}
-          inputProps={{
-            step: 300, // 5 min
-          }}
+        <Controller
+          as={
+            <Select>
+              <MenuItem value={0.25}>0,25L</MenuItem>
+              <MenuItem value={0.33}>0,33L</MenuItem>
+              <MenuItem value={0.5}>0,5L</MenuItem>
+            </Select>
+          }
+          name="size"
+          control={control}
+          defaultValue={0.25}
+          displayEmpty={true}
+          required
         />
+      </Grid>
       </CardContent>
       <CardActions >
         <Grid container justify="center">
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+          >
+            Add beer
+            </Button>
           <Button
             type="submit"
             variant="contained"

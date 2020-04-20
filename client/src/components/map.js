@@ -3,6 +3,7 @@ import ReactMapGL, { Marker, GeolocateControl, NavigationControl } from 'react-m
 import Geocoder from "react-map-gl-geocoder";
 import Card from '../components/card';
 import NewBarForm from '../components/new-bar-form';
+import EditBarForm from '../components/edit-bar-form';
 
 import { getAllBars } from '../API.js'
 
@@ -21,6 +22,7 @@ function Map () {
   const [barList, setBarList] = useState([]);
   const [addBar, setAddBar] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [editForm, setEditForm] = useState(false);
   const [togglePopup, setTogglePopup] = useState({});
   const [selectedBar, setSelectedBar] = useState(null);
   const [viewport, setViewport] = useState({
@@ -120,6 +122,20 @@ function Map () {
                     bar={bar}
                     setTogglePopup={setTogglePopup}
                     setSelectedBar={setSelectedBar}
+                    setEditForm={setEditForm}
+                    editForm={editForm}
+                  />
+                )
+                  : null
+              }
+              {
+                editForm && togglePopup[bar.barName] ? (
+                  <EditBarForm
+                    bar={bar}
+                    setTogglePopup={setTogglePopup}
+                    setSelectedBar={setSelectedBar}
+                    setEditForm={setEditForm}
+                    editForm={editForm}
                   />
                 )
                   : null
