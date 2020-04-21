@@ -10,6 +10,4 @@ router.put('/bars/:id/update', bar.updateBarBeers);
 router.post('/bars', bar.postBar);
 
 
-
-
 module.exports = router;

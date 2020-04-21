@@ -21,7 +21,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
-//import { getBarById,updateBar } from '../API.js'
+import { updateBar } from '../API.js';
 
 
 
@@ -67,30 +67,23 @@ export default function EditBarForm ({ bar, setTogglePopup, addBar, setAddBar, s
   const classes = useStyles();
   const { register, handleSubmit, control, reset } = useForm();
 
-  useEffect(() => {
-    console.log('UseEffect', beerList);
-  }, [beerList]);
+  //Debugging
+  // useEffect(() => {
+  //   console.log('UseEffect', beerList);
+  // }, [beerList]);
 
   const onSubmit = async (data) => {
     try {
-      console.log('data: ', data);
-      console.log('beerList: ', beerList);
       const newBeer = {
         beerName: data.beerName,
         price: data.price,
         size: data.size,
       };
-      setBeerList([...beerList, newBeer]); //debug
-      console.log('beerListUpdated: ', beerList); //debug
-      reset();
-      //roundup 6 decimals
-      //round the beer price also to a positive number to the 0.05
+      const barId = bar._id;
+      console.log('newBeer: ', newBeer);
+      updateBar(newBeer, barId);
       setLoading(true);
-      //TODO put bar
-      // const barToModi = await getBarByID(); // from api
-      // const newBeerList = [...barToModi.beerList, newBeer];
-      // updateBar(barToModi._id, newBeerList);
-      //onClose()
+      onClose();
     } catch (error) {
       console.log(error);
       setError(error.message);
@@ -115,8 +108,8 @@ export default function EditBarForm ({ bar, setTogglePopup, addBar, setAddBar, s
           </IconButton>
         }
         title={bar.barName}
-        // subheader={`${(!bar.openHour ? '' : (`${bar.openHour} - ${bar.closeHour}`))}`} //properties.
-        subheader={beerList.length} //properties.
+        subheader={`${(!bar.openHour ? '' : (`${bar.openHour} - ${bar.closeHour}`))}`} //properties.
+      //subheader={beerList.length} //debugging.
       />
       {error ? <h3 className="error">{error}</h3> : null}
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -125,27 +118,6 @@ export default function EditBarForm ({ bar, setTogglePopup, addBar, setAddBar, s
         </CardContent>
         <CardContent>
           <Grid container direction="row" justify="space-evenly" alignItems="center">
-            {/* <TextField
-              margin="dense"
-              inputRef={register({
-                pattern: {
-                  value: /^[1-9]\d{0,2}(\.\d{3})*(,\d+)?$/i,
-                  message: 'The value should be a number over 0.5 €'
-                }
-              })
-              }
-              required
-              type="number"
-              label="Price"
-              name="price"
-              size="small"
-              className={clsx(classes.margin, classes.textField)}
-              InputProps={{
-                placeholder: "0",
-                startAdornment: <InputAdornment position="start">€</InputAdornment>
-              }}
-              variant="outlined"
-            /> */}
             <div className={classes.slider}>
               <Typography id="input-slider" gutterBottom>
                 Price
@@ -156,8 +128,9 @@ export default function EditBarForm ({ bar, setTogglePopup, addBar, setAddBar, s
                 </Grid>
                 <Grid item xs>
                   <Controller
-                    name="Price"
+                    name="price"
                     control={control}
+                    defaultValue={1.5}
                     onChange={([, value]) => value}
                     as={<Slider
                       valueLabelDisplay="on"

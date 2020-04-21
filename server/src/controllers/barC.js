@@ -12,12 +12,12 @@ async function getAll (req, res) {
 
 async function postBar (req, res) {
   const bar = req.body;
-  const barChecker = await Bar.findOne({barName:bar.barName}); //in future also with same coordinates(tolerance)
+  const barChecker = await Bar.findOne({ barName: bar.barName }); //in future also with same coordinates(tolerance)
 
   if (barChecker) {
     const error = new Error('Bar already exists.');
     res.status(400);
-    res.json({message: error.message,});
+    res.json({ message: error.message, });
   } else {
     try {
       const newBar = await Bar.create({
@@ -33,14 +33,14 @@ async function postBar (req, res) {
     } catch (error) {
       console.log(error); //eslint-disable-line
       res.sendStatus(500);
-      }
+    }
   }
 }
 
 async function getBar (req, res) {
   try {
     const bar = await Bar.findById({ _id: req.params.id });
-    res.status(200)
+    res.status(200);
     res.json(bar);
   } catch (error) {
     console.log(error);//eslint-disable-line
@@ -49,10 +49,10 @@ async function getBar (req, res) {
 }
 async function updateBarBeers (req, res) {
   try {
-    const newBeer = req.body.beerList
+    const newBeer = req.body;
     const bar = await Bar.findByIdAndUpdate(
       { _id: req.params.id },
-      {  beerList: newBeer  },
+      { $push: { beerList: newBeer } },
       { new: true }, //make update and then receive the response
     );
     res.status(200);

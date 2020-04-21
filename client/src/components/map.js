@@ -11,8 +11,8 @@ import { getAllBars } from '../API.js';
 const geolocateStyle = {
   position: 'absolute',
   right: 0,
-  bottom: 132,
-  margin: 15,
+  bottom: 135,
+  margin: 10,
 };
 
 function Map () {
@@ -27,11 +27,13 @@ function Map () {
   const [togglePopup, setTogglePopup] = useState({});
   const [selectedBar, setSelectedBar] = useState(null);
   const [viewport, setViewport] = useState({
-    width: '100vw',
+    width: '100%',
     height: '98vh',
     latitude: 41.3940,
     longitude: 2.1991,
-    zoom: 13,
+    zoom: 14,
+    pitch: 40, // pitch in degrees
+    bearing: 5, // bearing in degrees
   });
 
   const getBarPins = async () => {
@@ -70,7 +72,7 @@ function Map () {
       <ReactMapGL
         ref={mapRef}
         {...viewport}
-        // mapStyle="mapbox://styles/aleguti94/ck92mrrba2b8y1iocq2mi2rzi"
+        //mapStyle="mapbox://styles/url" for a custom style
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={setViewport}
         onDblClick={addNewBarMarker}
@@ -81,7 +83,7 @@ function Map () {
           positionOptions={{ enableHighAccuracy: true }}
           showUserLocation={true}
         />
-        <div style={{ position: 'absolute', right: 0, bottom: 40, margin: 15 }} >
+        <div style={{ position: 'absolute', right: 0, bottom: 45, margin: 10 }} >
           <NavigationControl />
         </div>
         <Geocoder
@@ -115,7 +117,7 @@ function Map () {
                     setAddBar(null);
                   }}
                 >
-                  <span className="material-icons main">add_location</span>
+                  <span className="material-icons main">room</span>
                 </div>
               </Marker>
               {
@@ -146,8 +148,8 @@ function Map () {
                       setTogglePopup({});
                       setSelectedBar(null);
                       setEditForm(!editForm);
-                      getBarPins();
                       setDragPanState(!dragPanState);
+                      getBarPins();
                     }
                     }
                   />
