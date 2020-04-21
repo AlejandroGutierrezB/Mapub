@@ -14,11 +14,10 @@ import Grid from "@material-ui/core/Grid";
 import EuroIcon from '@material-ui/icons/Euro';
 import Typography from '@material-ui/core/Typography';
 
-import clsx from 'clsx';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
 
-import React, { useState, useEffect } from 'react';
+
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
 import { updateBar } from '../API.js';
@@ -62,12 +61,12 @@ export default function EditBarForm ({ bar, setTogglePopup, addBar, setAddBar, s
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [beerList, setBeerList] = useState(bar.beerList);
 
   const classes = useStyles();
-  const { register, handleSubmit, control, reset } = useForm();
+  const { register, handleSubmit, control } = useForm();
 
   //Debugging
+  //const [beerList, setBeerList] = useState(bar.beerList);
   // useEffect(() => {
   //   console.log('UseEffect', beerList);
   // }, [beerList]);

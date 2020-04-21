@@ -12,7 +12,7 @@ async function getAll (req, res) {
 
 async function postBar (req, res) {
   const bar = req.body;
-  const barChecker = await Bar.findOne({ barName: bar.barName }); //in future also with same coordinates(tolerance)
+  const barChecker = await Bar.findOne({ barName: bar.barName });
 
   if (barChecker) {
     const error = new Error('Bar already exists.');
@@ -61,18 +61,27 @@ async function deleteBar (req, res) {
 
 
 async function updateBarBeers (req, res) {
-  try {
-    const newBeer = req.body;
-    const bar = await Bar.findByIdAndUpdate(
-      { _id: req.params.id },
-      { $push: { beerList: newBeer } },
-      { new: true }, //make update and then receive the response
-    );
-    res.status(200);
-    res.json(bar);
-  } catch (error) {
-    console.log(error);//eslint-disable-line
-    res.sendStatus(500);
+  const bar = req.params.id;
+  const newBeer = req.body;
+  const beerChecker = await Bar.findOne({ _id: bar, beerList: newBeer });
+
+  if (beerChecker) {
+    const error = new Error('Beer info already existed in this bar.');
+    res.status(400);
+    res.json({ message: error.message, });
+  } else {
+    try {
+      const bar = await Bar.findByIdAndUpdate(
+        { _id: req.params.id },
+        { $push: { beerList: newBeer } },
+        { new: true }, //make update and then receive the response
+      );
+      res.status(200);
+      res.json(bar);
+    } catch (error) {
+      console.log(error);//eslint-disable-line
+      res.sendStatus(500);
+    }
   }
 }
 
