@@ -6,6 +6,12 @@ export async function getAllBars () {
   return response.json();
 };
 
+export async function getFilteredBars (filter) {
+  const response = await fetch(`${API_URL}/bars/filter/${filter}`);
+  return response.json();
+};
+
+
 export async function createBar (bar) {
   const response = await fetch(`${API_URL}/bars`, {
     method: 'POST',

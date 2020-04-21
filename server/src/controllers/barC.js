@@ -58,8 +58,6 @@ async function deleteBar (req, res) {
   }
 }
 
-
-
 async function updateBarBeers (req, res) {
   const bar = req.params.id;
   const newBeer = req.body;
@@ -85,10 +83,24 @@ async function updateBarBeers (req, res) {
   }
 }
 
+async function filterBar (req, res) {
+  try {
+    console.log('req.params: ', typeof req.params.filter);
+    const beer = req.params.filter; // get it as the req.body and change also the router
+    const bars = await Bar.find({ "beerList.beerName": beer });
+    res.status(200);
+    res.json(bars);
+  } catch (error) {
+    console.log(error);//eslint-disable-line
+    res.sendStatus(500);
+  }
+}
+
 module.exports = {
   getAll,
   postBar,
   getBar,
   updateBarBeers,
-  deleteBar
+  deleteBar,
+  filterBar
 };
