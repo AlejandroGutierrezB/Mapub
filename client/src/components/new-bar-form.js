@@ -12,7 +12,7 @@ import Grid from "@material-ui/core/Grid";
 
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { createBar } from '../API.js';
@@ -55,17 +55,24 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [coordinates, setCoordinates] = useState([addBar.longitude, addBar.latitude]);
 
   const classes = useStyles();
   const { register, handleSubmit } = useForm();
 
+  //Debugging
+  // console.log('addBar', addBar);
+  // useEffect(() => {
+  //   console.log('UseEffect', coordinates);
+  // }, [coordinates]);
+
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      data.longitude = addBar.longitude;
-      data.latitude = addBar.latitude;
-      console.log(data);
+      data.longitude = parseFloat((coordinates[0]).toFixed(6)); //slice 6 decimals mapbox doesnt support more
+      data.latitude = parseFloat((coordinates[1]).toFixed(6)); //slice 6 decimals
       await createBar(data);
+      setCoordinates([]);
       onClose();
     } catch (error) {
       console.log(error);
@@ -91,6 +98,7 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
         }
         title="Add a new Bar"
         subheader="Cheers to that one🍻"
+      // subheader={coordinates} //debugging.
       />
       {/* autocomplete="off" in production */}
       {error ? <h3 className="error">{error}</h3> : null}
@@ -105,7 +113,7 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
                 }
               })
             }
-            required name="barName" label="Bar Name" variant="outlined" margin="dense" fullWidth="true" />
+            required name="barName" label="Bar Name" variant="outlined" margin="dense" fullWidth={true} />
         </CardContent>
         <CardContent>
           <TextField

@@ -47,6 +47,19 @@ async function getBar (req, res) {
     res.sendStatus(500);
   }
 }
+
+async function deleteBar (req, res) {
+  try {
+    const bar = await Bar.findByIdAndDelete({ _id: req.params.id });
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);//eslint-disable-line
+    res.sendStatus(500);
+  }
+}
+
+
+
 async function updateBarBeers (req, res) {
   try {
     const newBeer = req.body;
@@ -68,4 +81,5 @@ module.exports = {
   postBar,
   getBar,
   updateBarBeers,
+  deleteBar
 };

@@ -9,5 +9,6 @@ router.put('/bars/:id/update', bar.updateBarBeers);
 
 router.post('/bars', bar.postBar);
 
+router.delete('/bars/:id', bar.deleteBar);
 
 module.exports = router;

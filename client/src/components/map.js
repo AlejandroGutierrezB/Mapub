@@ -77,6 +77,7 @@ function Map () {
         onViewportChange={setViewport}
         onDblClick={addNewBarMarker}
         dragPan={dragPanState}
+        doubleClickZoom={false}
       >
         <GeolocateControl
           style={geolocateStyle}

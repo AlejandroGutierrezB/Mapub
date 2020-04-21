@@ -8,7 +8,7 @@ export async function getAllBars () {
 
 export async function createBar (bar) {
   const response = await fetch(`${API_URL}/bars`, {
-    method: 'PUSH',
+    method: 'POST',
     headers: {
       'content-type': 'application/json',
     },
