@@ -5,7 +5,7 @@ import Card from '../components/card';
 import NewBarForm from '../components/new-bar-form';
 import EditBarForm from '../components/edit-bar-form';
 
-import { getAllBars } from '../API.js'
+import { getAllBars } from '../API.js';
 
 
 const geolocateStyle = {
@@ -23,6 +23,7 @@ function Map () {
   const [addBar, setAddBar] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [editForm, setEditForm] = useState(false);
+  const [dragPanState, setDragPanState] = useState(true);
   const [togglePopup, setTogglePopup] = useState({});
   const [selectedBar, setSelectedBar] = useState(null);
   const [viewport, setViewport] = useState({
@@ -40,7 +41,7 @@ function Map () {
 
   useEffect(() => {
     getBarPins();
-  }, [])
+  }, []);
 
   const addNewBarMarker = (event) => {
     const [longitude, latitude] = event.lngLat;
@@ -73,6 +74,7 @@ function Map () {
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         onViewportChange={setViewport}
         onDblClick={addNewBarMarker}
+        dragPan={dragPanState}
       >
         <GeolocateControl
           style={geolocateStyle}
@@ -113,7 +115,7 @@ function Map () {
                     setAddBar(null);
                   }}
                 >
-                    <span className="material-icons main">add_location</span>
+                  <span className="material-icons main">add_location</span>
                 </div>
               </Marker>
               {
@@ -124,6 +126,8 @@ function Map () {
                     setSelectedBar={setSelectedBar}
                     setEditForm={setEditForm}
                     editForm={editForm}
+                    dragPanState={dragPanState}
+                    setDragPanState={setDragPanState}
                   />
                 )
                   : null
@@ -136,6 +140,16 @@ function Map () {
                     setSelectedBar={setSelectedBar}
                     setEditForm={setEditForm}
                     editForm={editForm}
+                    dragPanState={dragPanState}
+                    setDragPanState={setDragPanState}
+                    onClose={() => {
+                      setTogglePopup({});
+                      setSelectedBar(null);
+                      setEditForm(!editForm);
+                      getBarPins();
+                      setDragPanState(!dragPanState);
+                    }
+                    }
                   />
                 )
                   : null
@@ -169,7 +183,7 @@ function Map () {
                     onClose={() => {
                       handleShowForm();
                       getBarPins();
-                      }
+                    }
                     }
                   />
                 )

@@ -12,7 +12,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import EditIcon from '@material-ui/icons/Edit';
 import React from 'react';
 
-import img from '../icons/mnm-all-XDW56oKSCHw-unsplash (1).jpg'
+import img from '../icons/mnm-all-XDW56oKSCHw-unsplash (1).jpg';
 
 
 
@@ -34,15 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar, setEditForm, editForm }) {
+export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar, setEditForm, editForm, setDragPanState, dragPanState }) {
   const classes = useStyles();
-
-  //TODO handle edit button
-  // const [expanded, setExpanded] = React.useState(false);
-  // const handleExpandClick = () => {
-  //   setExpanded(!expanded);
-  // };
-
 
   return (
     <Card className={classes.root}>
@@ -68,7 +61,7 @@ export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar,
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-        ✆{bar.tlf}
+          ✆{bar.tlf}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -81,9 +74,9 @@ export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar,
         <IconButton aria-label="edit bar">
           <EditIcon
             onClick={() => {
-              // setTogglePopup({});
               setSelectedBar(null);
               setEditForm(!editForm);
+              setDragPanState(!dragPanState);
             }}
           />
         </IconButton>

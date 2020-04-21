@@ -7,16 +7,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Close from '@material-ui/icons/Close';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Select from "@material-ui/core/Select";
-import MenuItem from '@material-ui/core/MenuItem';
 import Grid from "@material-ui/core/Grid";
 
-import clsx from 'clsx';
-import InputAdornment from '@material-ui/core/InputAdornment';
+
 
 
 import React, { useState}  from 'react';
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { createBar } from '../API.js'
 
@@ -60,13 +57,10 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
   const [error, setError] = useState('');
 
   const classes = useStyles();
-  const { register, handleSubmit, control} = useForm()
+  const { register, handleSubmit} = useForm()
 
   const onSubmit = async (data) => {
     try {
-      console.log('data: ',data);
-      //roundup 6 decimals
-      //round the beer price also to a positive number to the 0.05
       setLoading(true);
       data.longitude = addBar.longitude;
       data.latitude = addBar.latitude;

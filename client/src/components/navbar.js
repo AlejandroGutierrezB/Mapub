@@ -15,12 +15,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1,
+    flexGrow: 1
   },
 }));
 
 export default function ButtonAppBar () {
   const classes = useStyles();
+
 
   return (
     <div className={classes.root}>
