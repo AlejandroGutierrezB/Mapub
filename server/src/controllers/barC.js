@@ -85,7 +85,7 @@ async function updateBarBeers (req, res) {
 
 async function filterBar (req, res) {
   try {
-    console.log('req.params: ', typeof req.params.filter);
+    console.log('req.body.filter: ', req.params.filter);
     const beer = req.params.filter; // get it as the req.body and change also the router
     const bars = await Bar.find({ "beerList.beerName": beer });
     res.status(200);

@@ -4,8 +4,9 @@ import Geocoder from "react-map-gl-geocoder";
 import Card from '../components/card';
 import NewBarForm from '../components/new-bar-form';
 import EditBarForm from '../components/edit-bar-form';
+import { useForm } from "react-hook-form";
 
-import { getAllBars } from '../API.js';
+import { getAllBars, getFilteredBars } from '../API.js';
 
 
 const geolocateStyle = {
@@ -20,6 +21,7 @@ function Map () {
   const mapRef = useRef();
 
   const [barList, setBarList] = useState([]);
+  const [filtered, setFiltered] = useState(null);
   const [addBar, setAddBar] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [editForm, setEditForm] = useState(false);
@@ -36,14 +38,26 @@ function Map () {
     bearing: 5, // bearing in degrees
   });
 
+  const { register, handleSubmit, reset } = useForm();
+  const onSubmit = data => {
+    const filteredCriteria = data.filter; // convert it to string?
+    console.log('data: ', data);
+    setFiltered(filteredCriteria);
+  };
+
   const getBarPins = async () => {
-    const barList = await getAllBars();
-    setBarList(barList);
+    if (!filtered) {
+      const barList = await getAllBars();
+      setBarList(barList);
+    } else {
+      const barList = await getFilteredBars(filtered);
+      setBarList(barList);
+    }
   };
 
   useEffect(() => {
     getBarPins();
-  }, []);
+  }, [filtered]); //when filter state changes it reuploads
 
   const addNewBarMarker = (event) => {
     const [longitude, latitude] = event.lngLat;
@@ -84,6 +98,22 @@ function Map () {
           positionOptions={{ enableHighAccuracy: true }}
           showUserLocation={true}
         />
+        <div style={{ position: 'absolute', right: 10, top: 50 }} >
+          <form className="form" onSubmit={handleSubmit(onSubmit)}>
+            <input className="input" name="filter"
+              defaultValue=""
+              ref={register}
+              placeholder="  Filter by your favourite Beer"
+            />
+            <input className="reset" type="button" value="Clear"
+              onClick={() => {
+                setFiltered(null);
+                console.log('filtered: ', filtered);
+                reset();
+              }} />
+            <button type="submit" className="filter_submit">Filtrar</button>
+          </form>
+        </div>
         <div style={{ position: 'absolute', right: 0, bottom: 45, margin: 10 }} >
           <NavigationControl />
         </div>

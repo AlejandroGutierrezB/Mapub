@@ -31,3 +31,27 @@ body {
   color: #7993BA;
 }
 
+.form {
+  width: 220px;
+  min-width:  220px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 0 10px 1px #3333;
+  border-radius: 6px;
+  height: 30px;
+  /* border: 1px solid white; */
+}
+.input {
+  flex: 3;
+  padding: 0;
+}
+.reset {
+  flex: 0.3;
+}
+.filter_submit {
+  flex: 1;
+  padding: 0;
+  color: white;
+  font-weight: 500;
+  background-color: #757575;
+}

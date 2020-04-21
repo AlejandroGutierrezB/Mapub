@@ -6,7 +6,8 @@ export async function getAllBars () {
   return response.json();
 };
 
-export async function getFilteredBars (filter) {
+export async function getFilteredBars (filtered) {
+  const filter = encodeURIComponent(filtered);
   const response = await fetch(`${API_URL}/bars/filter/${filter}`);
   return response.json();
 };
