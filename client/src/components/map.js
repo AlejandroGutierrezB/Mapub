@@ -40,8 +40,7 @@ function Map () {
 
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = data => {
-    const filteredCriteria = data.filter; // convert it to string?
-    console.log('data: ', data);
+    const filteredCriteria = data.filter;
     setFiltered(filteredCriteria);
   };
 
@@ -57,7 +56,7 @@ function Map () {
 
   useEffect(() => {
     getBarPins();
-  }, [filtered]); //when filter state changes it reuploads
+  }, [filtered]);
 
   const addNewBarMarker = (event) => {
     const [longitude, latitude] = event.lngLat;
@@ -99,7 +98,7 @@ function Map () {
           showUserLocation={true}
         />
         <div style={{ position: 'absolute', right: 10, top: 50 }} >
-          <form className="form" onSubmit={handleSubmit(onSubmit)}>
+          <form className="form" onSubmit={handleSubmit(onSubmit)} autocomplete="off">
             <input className="input" name="filter"
               defaultValue=""
               ref={register}
@@ -108,7 +107,6 @@ function Map () {
             <input className="reset" type="button" value="Clear"
               onClick={() => {
                 setFiltered(null);
-                console.log('filtered: ', filtered);
                 reset();
               }} />
             <button type="submit" className="filter_submit">Filtrar</button>

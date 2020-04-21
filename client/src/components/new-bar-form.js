@@ -102,7 +102,7 @@ export default function RecipeReviewCard ({ addBar, setAddBar, setSelectedBar, h
       />
       {/* autocomplete="off" in production */}
       {error ? <h3 className="error">{error}</h3> : null}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} autocomplete="off">
         <CardContent>
           <TextField
             inputRef={

@@ -111,7 +111,7 @@ export default function EditBarForm ({ bar, setTogglePopup, addBar, setAddBar, s
       //subheader={beerList.length} //debugging.
       />
       {error ? <h3 className="error">{error}</h3> : null}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} autocomplete="off">
         <CardContent>
           <TextField mx="auto" inputRef={register} required name="beerName" label="Beer Brand" variant="outlined" margin="dense" fullWidth={true} />
         </CardContent>
