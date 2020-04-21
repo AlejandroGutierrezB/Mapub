@@ -51,7 +51,7 @@ function Map () {
       setBarList(barList);
     } else {
       const barList = await getFilteredBars(filtered);
-      setBarList(barList);
+      barList.length && setBarList(barList);
     }
   };
 

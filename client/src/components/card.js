@@ -13,6 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import React from 'react';
 
 import img from '../icons/mnm-all-XDW56oKSCHw-unsplash (1).jpg';
+import BeerTable from './list.js';
 
 
 
@@ -59,6 +60,10 @@ export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar,
         image={img}
         title="beer"
       />
+      {bar.beerList.length ?
+        <BeerTable beerList={bar.beerList} />
+        : null
+      }
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           ✆{bar.tlf}
