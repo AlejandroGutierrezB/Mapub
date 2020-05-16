@@ -33,12 +33,12 @@ REACT_APP_MAPBOX_TOKEN=<your mapbox token>
 
 </details>
 
-### 🥞 Stack
+## 🥞 Stack
 
-## Front-End
+### Front-End
 * React with material ui.
 * [React-map-gl](http://visgl.github.io/react-map-gl/).
 
-## Back-End
+### Back-End
 * Node.js with Express for the server.
 * Mongodb Atlas for the cloud database.
