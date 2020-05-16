@@ -4,8 +4,14 @@
   "description": "Map app to filter pubs/bars by your favourite beer and price",
   "main": "server/src/index.js",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  },
   "scripts": {
+    "install:all": "npm i . && cd client && npm i . && cd ../server && npm i .",
+    "start:server": "cd server && nodemon && cd ..",
+    "start:client": "cd client && BROWSER=none npm start && cd ..",
+    "start:all": "concurrently \"npm run start:server\" \"npm run start:client\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/src/index.js",
     "heroku-postbuild": "cd server && npm install && npm run start"
