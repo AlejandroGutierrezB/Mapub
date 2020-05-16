@@ -64,11 +64,14 @@ export default function RecipeReviewCard ({ bar, setTogglePopup, setSelectedBar,
         <BeerTable beerList={bar.beerList} />
         : null
       }
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          ✆{bar.tlf}
-        </Typography>
-      </CardContent>
+      {/* {bar.tlf ?
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            ✆{bar.tlf}
+          </Typography>
+        </CardContent>
+        : null
+      } */}
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
