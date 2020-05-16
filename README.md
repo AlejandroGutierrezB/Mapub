@@ -2,7 +2,8 @@
 Map app to filter pubs/bars by your favourite beer and price
 Check it out at https://mapub.netlify.app/
 
-<details><summary>Installation</summary><br>
+## Installation
+<details><summary>Details</summary><br>
 
 #### 1. Clone the repository
 #### 2. In the root directoy run `npm run install:all`.
