@@ -9,7 +9,7 @@ Cheers!🍻
 </div>    
 
 ## 🧪 Want to use this project?
-Check explore and remix it!
+Check, explore and remix it!
 <details><summary>See instructions</summary><br>
 #### 1. Fork and the clone the repository
 #### 2. In the root directoy run `npm run install:all`.
@@ -44,3 +44,4 @@ REACT_APP_MAPBOX_TOKEN=<your mapbox token>
 ### Back-End
 * Node.js with Express for the server.
 * Mongodb Atlas for the cloud database.
+     
