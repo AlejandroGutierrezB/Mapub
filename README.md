@@ -1,13 +1,15 @@
 # [Mapub](https://mapub.netlify.app/)
-Map app to filter pubs/bars by your favourite beer and price
+Map app to find the perfect pubs/bars and enjoy your favourite beer at the best price
 Check it out at https://mapub.netlify.app/
+Cheers!🍻
 
 ![](assets/main_iphone.png 'Home')
 ![](assets/bar_selected_iphone.png 'Cheers')
 
-<details><summary>Installation</summary><br>
-
-#### 1. Clone the repository
+## 🧪 Want to use this project?
+Check explore and remix it!
+<details><summary>See instructions</summary><br>
+#### 1. Fork and the clone the repository
 #### 2. In the root directoy run `npm run install:all`.
 #### 3. Add your env variables:
 #### 3.1 server --> .env.example (save as .env)
@@ -31,7 +33,7 @@ REACT_APP_MAPBOX_TOKEN=<your mapbox token>
 
 </details>
 
-### Stack
+### 🥞 Stack
 
 ## Front-End
 * React with material ui.
