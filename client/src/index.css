@@ -32,7 +32,7 @@ body {
 }
 
 .form {
-  width: 220px;
+  width: 280px;
   min-width:  220px;
   display: flex;
   overflow: hidden;
@@ -46,7 +46,11 @@ body {
   padding: 0;
 }
 .reset {
-  flex: 0.3;
+  flex: 1;
+  padding: 0;
+  color: #757575;
+  font-weight: 500;
+  background-color: white;
 }
 .filter_submit {
   flex: 1;

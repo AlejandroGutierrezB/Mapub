@@ -97,19 +97,22 @@ function Map () {
           positionOptions={{ enableHighAccuracy: true }}
           showUserLocation={true}
         />
-        <div style={{ position: 'absolute', right: 10, top: 50 }} >
+        <div style={{ position: 'absolute', right: 10, top: 80 }} >
           <form className="form" onSubmit={handleSubmit(onSubmit)} autocomplete="off">
             <input className="input" name="filter"
               defaultValue=""
               ref={register}
               placeholder="  Filter by your favourite Beer"
             />
-            <input className="reset" type="button" value="Clear"
+            <button
+              className="reset"
               onClick={() => {
                 setFiltered(null);
                 reset();
-              }} />
-            <button type="submit" className="filter_submit">Filtrar</button>
+              }} >
+              Clear
+            </button>
+            <button type="submit" className="filter_submit">Filter</button>
           </form>
         </div>
         <div style={{ position: 'absolute', right: 0, bottom: 45, margin: 10 }} >

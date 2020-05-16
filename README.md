@@ -2,6 +2,9 @@
 Map app to filter pubs/bars by your favourite beer and price
 Check it out at https://mapub.netlify.app/
 
+![](assets/main_iphone.png 'Home')
+![](assets/bar_selected_iphone.png 'Cheers')
+
 <details><summary>Installation</summary><br>
 
 #### 1. Clone the repository
@@ -27,3 +30,13 @@ REACT_APP_MAPBOX_TOKEN=<your mapbox token>
 #### 5. 🚀 Open [http://localhost:3000](http://localhost:3000) to view it in your browser, and start using the app!
 
 </details>
+
+### Stack
+
+## Front-End
+* React with material ui.
+* [React-map-gl](http://visgl.github.io/react-map-gl/).
+
+## Back-End
+* Node.js with Express for the server.
+* Mongodb Atlas for the cloud database.
