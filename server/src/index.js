@@ -1,10 +1,10 @@
-const express = require ('express');
-const cors = require ('cors');
+const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan'); // log responses
 const helmet = require('helmet'); // header protection middlewere
 require('dotenv').config();
 
-const router = require ('./router');
+const router = require('./router');
 const connectDB = require('./db');
 const middlewares = require('./middleweres');
 
@@ -23,8 +23,6 @@ app.use(express.json());
 app.use(router);
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
-
-
 
 
 app.listen(PORT, (err) => {

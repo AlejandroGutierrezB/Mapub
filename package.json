@@ -1,0 +1,26 @@
+{
+  "name": "mapub",
+  "version": "1.0.0",
+  "description": "Map app to filter pubs/bars by your favourite beer and price",
+  "main": "server/src/index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlejandroGutierrezB/Mapub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlejandroGutierrezB/Mapub/issues"
+  },
+  "homepage": "https://github.com/AlejandroGutierrezB/Mapub#readme",
+  "engines": {
+    "node": "12.14.1"
+  }
+}
