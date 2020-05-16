@@ -1,10 +1,11 @@
 # [Mapub](https://mapub.netlify.app/)
-Map app to filter pubs/bars by your favourite beer and price
+Map app to find the perfect pubs/bars and enjoy your favourite beer at the best price    
 Check it out at https://mapub.netlify.app/
 
-## Installation
+## Want to use this project?
+Check explore and remix it!   
 <details><summary>See instructions</summary><br>
-#### 1. Clone the repository
+#### 1. Fork and the clone the repository
 #### 2. In the root directoy run `npm run install:all`.
 #### 3. Add your env variables:
 #### 3.1 server --> .env.example (save as .env)
