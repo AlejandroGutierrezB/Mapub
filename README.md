@@ -3,8 +3,8 @@ Map app to find the perfect pubs/bars and enjoy your favourite beer at the best 
 Check it out at https://mapub.netlify.app/
 Cheers!🍻
 
-![](assets/main_iphone.png 'Home')
-![](assets/bar_selected_iphone.png 'Cheers')
+![](assets/main_iphone.png 'Home' =124x250)
+![](assets/bar_selected_iphone.png 'Cheers' =124x250)
 
 ## 🧪 Want to use this project?
 Check explore and remix it!
