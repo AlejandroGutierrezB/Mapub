@@ -11,14 +11,16 @@ Cheers!🍻
 ## 🧪 Want to use this project?
 Check, explore and remix it!
 <details><summary>See instructions</summary><br>
-#### 1. Fork and the clone the repository
-#### 2. In the root directoy run `npm run install:all`.
-#### 3. Add your env variables:
-#### 3.1 server --> .env.example (save as .env)
-1. You can create your cluster by signing up at [mongodb](https://www.mongodb.com/cloud/atlas).
-2. Allow connections (whitelist) from your IP or a global IP.
-3. Create a user with read and write privileges. `Security --> Database Access .
-4. Connect --> Connect your application --> Copy the uri  .
+    
+#### 1. Fork and the clone the repository       
+#### 2. In the root directoy run `npm run install:all`.       
+#### 3. Add your env variables:       
+#### 3.1 server --> .env.example (save as .env)     
+
+1. You can create your cluster by signing up at [mongodb](https://www.mongodb.com/cloud/atlas).     
+2. Allow connections (whitelist) from your IP or a global IP.    
+3. Create a user with read and write privileges. `Security --> Database Access .     
+4. Connect --> Connect your application --> Copy the uri  .      
 
 ```txt
 MONGO_URI=<your mongodb atlas uri>
