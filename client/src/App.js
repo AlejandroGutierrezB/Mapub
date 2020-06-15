@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Map from './components/map';
 import Navbar from './components/navbar';
-import ReactGa from 'react-ga';
+import ReactGA from 'react-ga';
 
 function App() {
   useEffect(() => {
